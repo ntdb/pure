@@ -117,6 +117,12 @@ prompt_pure_preprompt_render() {
 	# Set the path.
 	preprompt_parts+=('%F{blue}%~%f')
 
+    # Add docker fun
+    if [[ -f Dockerfile || -f docker-compose.yml ]]; then
+      current_containers=$(command docker ps --format="{{.Names}}" | wc -l | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+      preprompt_parts+=("%F{blue}${current_containers}%f")
+    fi
+
 	# Add git branch and dirty status info.
 	typeset -gA prompt_pure_vcs_info
 	if [[ -n $prompt_pure_vcs_info[branch] ]]; then
