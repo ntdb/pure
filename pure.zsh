@@ -119,7 +119,7 @@ prompt_pure_preprompt_render() {
 
     # Add docker fun
     if [[ -f Dockerfile || -f docker-compose.yml ]]; then
-      current_containers=$(command docker ps --format="{{.Names}}" | wc -l | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+      current_containers=$(command docker-compose ps --format="{{.Names}}" | wc -l | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
       if (( $current_containers > 0 )); then
         preprompt_parts+=("%F{white}¬${current_containers}%f")
       fi
